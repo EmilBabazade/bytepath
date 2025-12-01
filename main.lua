@@ -3,15 +3,20 @@ if arg[2] == "debug" then
 end
 
 function love.load()
-    Image = love.graphics.newImage('monkey.png')
+    X = 0
+    Width = love.graphics.getWidth()
+    Radius = 100
 end
 
-function love.update()
-
+function love.update(dt)
+    X = X + 500 * dt
+    if X - Radius > Width then
+        X = - Radius
+    end
 end
 
 function love.draw()
-    love.graphics.draw(Image, love.math.random(0, 800), love.math.random(0, 600))
+    love.graphics.circle('line', X, 300, Radius, 200)
 end
 
 local love_errorhandler = love.errorhandler
