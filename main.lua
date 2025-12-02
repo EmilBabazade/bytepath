@@ -35,7 +35,7 @@ function love.draw()
     end
 end
 
-function movement(dt)
+local function movement(dt)
     if love.keyboard.isDown("s") or love.keyboard.isDown("down") then
         Y = Y + Speed * dt
         if Y > Height + Len / 2 then
@@ -61,7 +61,7 @@ function movement(dt)
     end
 end
 
-function createBook(title, author, pages) 
+local function createBook(title, author, pages) 
     return {
         title=title, 
         author=author, 
