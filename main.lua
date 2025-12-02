@@ -3,26 +3,37 @@ if arg[2] == "debug" then
 end
 
 local rects = {}
+local circles = {}
 
 function love.load()
     table.insert(rects, CreateRect())
+    table.insert(circles, CreateCircle())
 end
 
 function love.update(dt)
     for _,rect in pairs(rects) do
         rect.x = rect.x + rect.speed * dt
     end
+
+    for _,circle in pairs(circles) do
+        circle.x = circle.x + circle.speed * dt
+    end
 end
 
 function love.keypressed(key)
     if key == 'space' then
-       table.insert(rects, CreateRect())
+        table.insert(rects, CreateRect())
+        table.insert(circles, CreateCircle())
     end
 end
 
 function love.draw()
     for _,rect in pairs(rects) do
         love.graphics.rectangle('line', rect.x, rect.y, rect.width, rect.height)
+    end
+
+    for _,sphere in pairs(circles) do
+        love.graphics.circle('line', sphere.x, sphere.y, sphere.radius)
     end
 end
 
@@ -68,6 +79,15 @@ function CreateRect()
     rect.height = 90
     rect.speed = 100
     return rect
+end
+
+function CreateCircle()
+    return {
+        x = 100,
+        y = 400,
+        radius = 70,
+        speed = 100
+    }
 end
 
 local love_errorhandler = love.errorhandler
