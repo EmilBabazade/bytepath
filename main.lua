@@ -2,36 +2,27 @@ if arg[2] == "debug" then
     require("lldebugger").start()
 end
 
+local rects = {}
+
 function love.load()
-    -- Width, Height = love.graphics.getDimensions()
-    -- Len = 50
-    -- X = Width / 2 - Len / 2
-    -- Y = Height / 2 - Len / 2
-    -- Speed = 300
-    ------
-    -- Fruits = {'apple', 'banana'}
-    -- for i = 1, #Fruits do
-    --     print(Fruits[i])
-    -- end
-    ------
-    Books = {
-        createBook("Bob in bobland", "bob", 23),
-        createBook("Tom in bobland the long awaited sequel", "bob", 50),
-        createBook("Geremy in bobland the failed triqual", "bob", 67),
-    }
+    table.insert(rects, CreateRect())
 end
 
 function love.update(dt)
-    --table.insert(Fruits, "monkey")
-    -- movement(dt)
+    for _,rect in pairs(rects) do
+        rect.x = rect.x + rect.speed * dt
+    end
+end
+
+function love.keypressed(key)
+    if key == 'space' then
+       table.insert(rects, CreateRect())
+    end
 end
 
 function love.draw()
-    -- love.graphics.rectangle('line', X, Y, Len, Len)
-    for i,v in ipairs(Books) do
-        love.graphics.print(v.title, 100, 100 + 50 * i)
-        love.graphics.print(v.author, 500, 100 + 50 * i)
-        love.graphics.print(v.pages, 600, 100 + 50 * i)
+    for _,rect in pairs(rects) do
+        love.graphics.rectangle('line', rect.x, rect.y, rect.width, rect.height)
     end
 end
 
@@ -61,12 +52,22 @@ local function movement(dt)
     end
 end
 
-local function createBook(title, author, pages) 
+local function createBook(title, author, pages)
     return {
         title=title, 
         author=author, 
         pages=pages
     }
+end
+
+function CreateRect()
+    local rect = {}
+    rect.x = 100
+    rect.y = 100
+    rect.width = 70
+    rect.height = 90
+    rect.speed = 100
+    return rect
 end
 
 local love_errorhandler = love.errorhandler
