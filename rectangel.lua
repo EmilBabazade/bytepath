@@ -1,16 +1,13 @@
-Rectangle = Object.extend(Object)
+local Shape = require('shape')
+
+local Rectangle = Shape.extend(Shape)
 
 function Rectangle:new(x, y, width, height, speed)
-    self.x = x
-    self.y = y
     self.width = width
     self.height = height
-    self.speed = speed
+    Rectangle.super.new(self, x, y, speed)
 end
 
-function Rectangle:update(dt)
-    self.x = self.x + self.speed * dt
-end
 
 function Rectangle:draw()
     love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
@@ -25,3 +22,5 @@ function Rectangle.newRandom()
         math.random(100, 500)
     )
 end
+
+return Rectangle

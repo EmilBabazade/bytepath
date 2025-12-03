@@ -1,14 +1,10 @@
-Circle = Object.extend(Object)
+local Shape = require('shape')
+
+local Circle = Shape.extend(Shape)
 
 function Circle:new(x, y, radius, speed)
-    self.x = x
-    self.y = y
     self.radius = radius
-    self.speed = speed
-end
-
-function Circle:update(dt)
-    self.x = self.x + self.speed * dt
+    Circle.super.new(self, x, y, speed)
 end
 
 function Circle:draw()
@@ -23,3 +19,5 @@ function Circle.newRandom()
         math.random(100, 500)
     )
 end
+
+return Circle

@@ -2,12 +2,11 @@ if arg[2] == "debug" then
     require("lldebugger").start()
 end
 
-local figures = {}
+local shapes = {}
 
 function love.load()
-    Object = require("classic")
-    require('rectangel')
-    require('circle')
+    Rectangle = require('rectangel')
+    Circle = require('circle')
 
     -- r1 = Rectangle(100, 100, 200, 150, 100)
     -- r2 = Rectangle(200, 300, 50, 150, 100)
@@ -15,7 +14,7 @@ function love.load()
 end
 
 function love.update(dt)
-    for _, f in pairs(figures) do
+    for _, f in pairs(shapes) do
         f:update(dt)
     end
 end
@@ -23,15 +22,15 @@ end
 function love.keypressed(key)
     if key == 'space' then
         local r = Rectangle.newRandom()
-        table.insert(figures, r)
+        table.insert(shapes, r)
 
         local c = Circle.newRandom()
-        table.insert(figures, c)
+        table.insert(shapes, c)
     end
 end
 
 function love.draw()
-    for _, f in pairs(figures) do
+    for _, f in pairs(shapes) do
         f:draw()
     end
 end
