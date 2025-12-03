@@ -2,38 +2,37 @@ if arg[2] == "debug" then
     require("lldebugger").start()
 end
 
-local rects = {}
-local circles = {}
+local figures = {}
 
 function love.load()
-    table.insert(rects, CreateRect())
-    table.insert(circles, CreateCircle())
+    Object = require("classic")
+    require('rectangel')
+    require('circle')
+
+    -- r1 = Rectangle(100, 100, 200, 150, 100)
+    -- r2 = Rectangle(200, 300, 50, 150, 100)
+    -- c3 = Cirlce(200, 300, 50, 150)
 end
 
 function love.update(dt)
-    for _,rect in pairs(rects) do
-        rect.x = rect.x + rect.speed * dt
-    end
-
-    for _,circle in pairs(circles) do
-        circle.x = circle.x + circle.speed * dt
+    for _, f in pairs(figures) do
+        f:update(dt)
     end
 end
 
 function love.keypressed(key)
     if key == 'space' then
-        table.insert(rects, CreateRect())
-        table.insert(circles, CreateCircle())
+        local r = Rectangle.newRandom()
+        table.insert(figures, r)
+
+        local c = Circle.newRandom()
+        table.insert(figures, c)
     end
 end
 
 function love.draw()
-    for _,rect in pairs(rects) do
-        love.graphics.rectangle('line', rect.x, rect.y, rect.width, rect.height)
-    end
-
-    for _,sphere in pairs(circles) do
-        love.graphics.circle('line', sphere.x, sphere.y, sphere.radius)
+    for _, f in pairs(figures) do
+        f:draw()
     end
 end
 
@@ -73,8 +72,8 @@ end
 
 function CreateRect()
     local rect = {}
-    rect.x = 100
-    rect.y = 100
+    rect.x = math.random(100, 500)
+    rect.y = math.random(100, 500)
     rect.width = 70
     rect.height = 90
     rect.speed = 100
@@ -83,8 +82,8 @@ end
 
 function CreateCircle()
     return {
-        x = 100,
-        y = 400,
+        x = math.random(100, 500),
+        y = math.random(100, 500),
         radius = 70,
         speed = 100
     }
