@@ -3,14 +3,13 @@ if arg[2] == "debug" then
 end
 
 local shapes = {}
-
+local monkey = {}
 function love.load()
     Rectangle = require('rectangel')
     Circle = require('circle')
-
-    -- r1 = Rectangle(100, 100, 200, 150, 100)
-    -- r2 = Rectangle(200, 300, 50, 150, 100)
-    -- c3 = Cirlce(200, 300, 50, 150)
+    monkey.image = love.graphics.newImage('monkey.png')
+    monkey.x = 100
+    monkey.y = 100
 end
 
 function love.update(dt)
@@ -26,10 +25,14 @@ function love.keypressed(key)
 
         local c = Circle.newRandom()
         table.insert(shapes, c)
+        
+        monkey.x = math.random(0, 500)
+        monkey.y = math.random(0, 500)
     end
 end
 
 function love.draw()
+    love.graphics.draw(monkey.image, monkey.x, monkey.y, 0, 0.25, 0.25)
     for _, f in pairs(shapes) do
         f:draw()
     end
