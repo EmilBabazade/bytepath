@@ -10,6 +10,8 @@ function love.load()
     monkey.image = love.graphics.newImage('monkey.png')
     monkey.x = 100
     monkey.y = 100
+    monkey.width = monkey.image:getWidth()
+    monkey.height = monkey.image:getHeight()
 end
 
 function love.update(dt)
@@ -28,11 +30,16 @@ function love.keypressed(key)
         
         monkey.x = math.random(0, 500)
         monkey.y = math.random(0, 500)
+        
+        local r = math.random(0, 255)
+        local g = math.random(0, 255)
+        local b = math.random(0, 255)
+        love.graphics.setColor(r/255, g/255, b/255)
     end
 end
 
 function love.draw()
-    love.graphics.draw(monkey.image, monkey.x, monkey.y, 0, 0.25, 0.25)
+    love.graphics.draw(monkey.image, monkey.x, monkey.y, 0, 0.25, 0.25, monkey.width/2, monkey.height/2)
     for _, f in pairs(shapes) do
         f:draw()
     end
